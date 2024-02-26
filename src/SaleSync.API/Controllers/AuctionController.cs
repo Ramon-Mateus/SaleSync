@@ -17,7 +17,7 @@ namespace SaleSync.API.Controllers
 
             var result = useCase.Execute();
 
-            if (result != null)
+            if (result is null)
             {
                 return NoContent();
             }

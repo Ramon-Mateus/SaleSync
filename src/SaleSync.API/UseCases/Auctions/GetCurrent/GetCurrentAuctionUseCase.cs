@@ -6,14 +6,16 @@ namespace SaleSync.API.UseCases.Auctions.GetCurrent
 {
     public class GetCurrentAuctionUseCase
     {
-        public Auction Execute()
+        public Auction? Execute() // o ponto de interrogação diz que pode ser retornado um nulo
         {
             var repository = new SaleSyncAuctionEntityDbContext();
+
+            var today = DateTime.Now; // new DateTime(2024, 05, 01);
 
             return repository
                 .Auctions
                 .Include(auction => auction.Items)
-                .First();
+                .FirstOrDefault(auction => today >= auction.Starts && today <= auction.Ends);
         }
     }
 }
