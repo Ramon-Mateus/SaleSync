@@ -4,9 +4,7 @@ using SaleSync.API.Entities;
 
 namespace SaleSync.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuctionController : ControllerBase
+    public class AuctionController : SaleSyncBaseController
     {
         [HttpGet]
         [ProducesResponseType(typeof(Auction), StatusCodes.Status200OK)] // Melhora a documentação do Swagger
