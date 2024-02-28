@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SaleSync.API.Communication.Requests;
+using SaleSync.API.Filters;
 
 namespace SaleSync.API.Controllers
 {
+    [ServiceFilter(typeof(AuthenticationUserAttribute))]
     public class OfferController : SaleSyncBaseController
     {
         [HttpPost]
