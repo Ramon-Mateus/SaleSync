@@ -1,21 +1,17 @@
-﻿using SaleSync.API.Entities;
-using SaleSync.API.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using SaleSync.API.Contracts;
+using SaleSync.API.Entities;
 
 namespace SaleSync.API.UseCases.Auctions.GetCurrent
 {
     public class GetCurrentAuctionUseCase
     {
-        public Auction? Execute() // o ponto de interrogação diz que pode ser retornado um nulo
+        private readonly IAuctionRepository _repository;
+
+        public GetCurrentAuctionUseCase(IAuctionRepository repository) => _repository = repository;
+
+        public Auction? Execute()
         {
-            var repository = new SaleSyncAuctionEntityDbContext();
-
-            var today = DateTime.Now; // new DateTime(2024, 05, 01);
-
-            return repository
-                .Auctions
-                .Include(auction => auction.Items)
-                .FirstOrDefault(auction => today >= auction.Starts && today <= auction.Ends);
+            return _repository.GetCurrent();   
         }
     }
 }
