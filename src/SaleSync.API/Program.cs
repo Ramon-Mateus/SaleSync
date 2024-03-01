@@ -1,8 +1,10 @@
 using Microsoft.OpenApi.Models;
+using SaleSync.API.Contracts;
 using SaleSync.API.Filters;
+using SaleSync.API.Repositories.DataAccess;
 using SaleSync.API.Services;
+using SaleSync.API.UseCases.Auctions.GetCurrent;
 using SaleSync.API.UseCases.Offers.CreateOffer;
-using System.Security.Cryptography.Xml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +48,9 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<AuthenticationUserAttribute>();
 builder.Services.AddScoped<LoggedUser>();
 builder.Services.AddScoped<CreateOfferUseCase>();
+builder.Services.AddScoped<GetCurrentAuctionUseCase>();
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
 
 builder.Services.AddHttpContextAccessor();
 

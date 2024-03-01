@@ -1,4 +1,5 @@
 ﻿using SaleSync.API.Communication.Requests;
+using SaleSync.API.Contracts;
 using SaleSync.API.Entities;
 using SaleSync.API.Repositories;
 using SaleSync.API.Services;
@@ -8,13 +9,16 @@ namespace SaleSync.API.UseCases.Offers.CreateOffer
     public class CreateOfferUseCase
     {
         private readonly LoggedUser _loggedUser;
+        private readonly IOfferRepository _repository;
 
-        public CreateOfferUseCase(LoggedUser loggedUser) => _loggedUser = loggedUser;
+        public CreateOfferUseCase(LoggedUser loggedUser, IOfferRepository repository)
+        {
+            _loggedUser = loggedUser;
+            _repository = repository;            
+        }
 
         public int Execute(int itemId, RequestCreateOfferJson request)
         {
-            var repository = new SaleSyncAuctionEntityDbContext();
-
             var user = _loggedUser.User();
 
             var offer = new Offer
@@ -25,9 +29,7 @@ namespace SaleSync.API.UseCases.Offers.CreateOffer
                 UserId = user.Id,
             };
 
-            repository.Offers.Add(offer);
-
-            repository.SaveChanges();
+            _repository.add(offer);
 
             return offer.Id;
         }

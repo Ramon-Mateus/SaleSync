@@ -9,10 +9,8 @@ namespace SaleSync.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(Auction), StatusCodes.Status200OK)] // Melhora a documentação do Swagger
         [ProducesResponseType(StatusCodes.Status204NoContent)] // Melhora a documentação do Swagger
-        public IActionResult GetCurrentAuction()
+        public IActionResult GetCurrentAuction([FromServices] GetCurrentAuctionUseCase useCase)
         {
-            GetCurrentAuctionUseCase useCase = new GetCurrentAuctionUseCase(); // Também funciona assim: var useCase = new GetCurrentAuctionUseCase();
-
             var result = useCase.Execute();
 
             if (result is null)
