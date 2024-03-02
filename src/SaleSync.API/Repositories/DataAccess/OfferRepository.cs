@@ -8,6 +8,7 @@ namespace SaleSync.API.Repositories.DataAccess
         private readonly SaleSyncAuctionEntityDbContext _dbContext;
 
         public OfferRepository(SaleSyncAuctionEntityDbContext dbContext) => _dbContext = dbContext;
+
         public void add(Offer offer)
         {
             _dbContext.Offers.Add(offer);

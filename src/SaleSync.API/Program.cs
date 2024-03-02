@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SaleSync.API.Contracts;
 using SaleSync.API.Filters;
+using SaleSync.API.Repositories;
 using SaleSync.API.Repositories.DataAccess;
 using SaleSync.API.Services;
 using SaleSync.API.UseCases.Auctions.GetCurrent;
@@ -51,6 +53,12 @@ builder.Services.AddScoped<CreateOfferUseCase>();
 builder.Services.AddScoped<GetCurrentAuctionUseCase>();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddDbContext<SaleSyncAuctionEntityDbContext>(options =>
+{
+    options.UseSqlite(@"Data Source=D:\Cursos\NLW Expert\C#\leilaoDbNLW.db");
+});
 
 builder.Services.AddHttpContextAccessor();
 
